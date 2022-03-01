@@ -1,0 +1,7 @@
+<nav>
+    {% if page == 'create_todo' %}
+        <a href="{% url 'list todos' %}">List</a>
+    {% else %}
+        <a href="{% url 'create todo' %}">Create</a>
+    {% endif %}
+</nav>
