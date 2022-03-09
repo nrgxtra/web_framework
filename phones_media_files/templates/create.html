@@ -1,0 +1,6 @@
+<h1>Add phone</h1>
+<form action="{% url 'add' %}" method="post">
+    {% csrf_token %}
+    <p>{{ form }}</p>
+    <button>Add</button>
+</form>
