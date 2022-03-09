@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from phones_media_files.phones.forms import CreatePhone, AddImage
+from phones_media_files.phones.forms import CreatePhone
 from phones_media_files.phones.models import Phone, PhoneImage
 
 
@@ -16,10 +16,10 @@ def index(request):
 
 def add_phone(request):
     if request.method == 'POST':
-        form = CreatePhone(request.POST)
+        form = CreatePhone(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-        return redirect('add image')
+        return redirect('index')
 
     context = {
         'form': CreatePhone(),
@@ -28,14 +28,14 @@ def add_phone(request):
     return render(request, 'create.html', context)
 
 
-def add_image(request):
-    if request.method == 'POST':
-        form = AddImage(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    context = {
-        'form': AddImage(),
-    }
-    return render(request, 'add_image.html', context)
+# def add_image(request):
+#     if request.method == 'POST':
+#         form = AddImage(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('index')
+#     context = {
+#         'form': AddImage(),
+#     }
+#     return render(request, 'add_image.html', context)
 
