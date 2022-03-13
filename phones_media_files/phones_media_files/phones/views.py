@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-
 from phones_media_files.phones.forms import CreatePhone
 from phones_media_files.phones.models import Phone, PhoneImage
 
