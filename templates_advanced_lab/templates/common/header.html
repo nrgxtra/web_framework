@@ -13,4 +13,14 @@
                 </li>
             </ul>
         </div>
+        <div>
+            {% if request.user.is_authenticated %}
+                <p>Hello {{ request.user }}
+                <a href="{% url 'sign out' %}">Sign Out</a>
+                </p>
+            {% else %}
+                <a href="{% url 'sign in' %}">Sign In</a>
+                <a href="{% url 'sign up' %}">Sign Up</a>
+            {% endif %}
+        </div>
     </nav>
