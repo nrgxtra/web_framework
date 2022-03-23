@@ -3,17 +3,17 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from templates_advanced.pythons_auth.forms import UserLoginForm
+from templates_advanced.pythons_auth.forms import UserLoginForm, SignUpForm
 
 
 def sign_up(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('sign in')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     context = {
         'form': form,
     }
