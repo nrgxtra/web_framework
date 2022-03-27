@@ -17,7 +17,6 @@ def create(req):
         return render(req, 'create.html', {'form': form})
     else:
         form = PythonCreateForm(req.POST, req.FILES)
-        print(form)
         if form.is_valid():
             form.save()
             return redirect('index')
