@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'bootstrap4',
     'templates_advanced.profiles',
     'templates_advanced.pythons_auth',
     'templates_advanced.pythons_app',
@@ -128,4 +129,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = reverse_lazy('sign in')
 
 AUTH_USER_MODEL = 'pythons_auth.PythonUser'
-

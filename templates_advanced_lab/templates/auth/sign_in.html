@@ -1,8 +1,15 @@
 {% extends 'common/base.html' %}
 {% block content %}
-    <form action="{% url 'sign in' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button>SignIn</button>
+    {% load bootstrap4 %}
+    <h1 class="text-center">Sign In</h1>
+    <div class="row d-flex justify-content-center">
+    <form action="{% url 'sign in' %}" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        {% endbuttons %}
     </form>
+    </div>
 {% endblock %}
+
