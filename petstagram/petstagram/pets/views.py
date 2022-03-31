@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from petstagram.common.forms import CommentForm
@@ -17,8 +18,16 @@ def list_pets(request):
 def pet_details(request, pk):
     pet = Pet.objects.get(pk=pk)
     pet.likes_count = pet.like_set.count()
+    is_liked_by_user = pet.like_set.filter(user_id=request.user.id).exists()
+
+    # can_edit = pet.user == request.user
+    # can_delete = pet.user == request.user
+    is_owner = pet.user == request.user
+
     context = {
         'pet': pet,
+        'is_owner': is_owner,
+        'is_liked': is_liked_by_user,
         'comment_form': CommentForm(
             initial={
                 'pet_pk': pk
@@ -30,18 +39,29 @@ def pet_details(request, pk):
     return render(request, 'templates/pets/pet_detail.html', context)
 
 
+@login_required
 def like_pet(request, pk):
     pet = Pet.objects.get(pk=pk)
-    like = Like(pet=pet)
-    like.save()
+    is_already_liked_by_user = pet.like_set.filter(user_id=request.user.id).first()
+    if is_already_liked_by_user:
+        is_already_liked_by_user.delete()
+    else:
+        like = Like(
+            pet=pet,
+            user=request.user,
+        )
+        like.save()
     return redirect('pet details', pet.id)
 
 
+@login_required
 def create_pet(request):
     if request.method == 'POST':
         form = PetForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            pet = form.save(commit=False)
+            pet.user = request.user
+            pet.save()
             return redirect('list pets')
         context = {
             'form': form,
@@ -54,6 +74,7 @@ def create_pet(request):
         return render(request, 'templates/pets/pet_create.html', context)
 
 
+@login_required
 def edit_pet(request, pk):
     pet = Pet.objects.get(pk=pk)
     if request.method == 'POST':
@@ -70,6 +91,7 @@ def edit_pet(request, pk):
         return render(request, 'templates/pets/pet_edit.html', context)
 
 
+@login_required
 def delete_pet(request, pk):
     pet = Pet.objects.get(pk=pk)
     if request.method == 'GET':
@@ -92,9 +114,11 @@ def delete_pet(request, pk):
 #         )
 #         comment.save()
 #     return redirect('pet details', pet.id)
-
+@login_required
 def comment_pet(request, pk):
     form = CommentForm(request.POST)
     if form.is_valid():
-        form.save()
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.save()
     return redirect('pet details', pk)

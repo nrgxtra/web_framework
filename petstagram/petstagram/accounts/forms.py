@@ -3,16 +3,13 @@ from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
+from petstagram.accounts.models import Profile
+from petstagram.core.forms import BootstrapFormMixin
+
 UserModel = get_user_model()
 
 
-class SignUpForm(UserCreationForm):
-    class Meta:
-        model = UserModel
-        fields = ("email",)
-
-
-class UserLoginForm(forms.Form):
+class LoginForm(forms.Form):
     user = None
     email = forms.EmailField()
     password = forms.CharField(
@@ -30,3 +27,15 @@ class UserLoginForm(forms.Form):
 
     def save(self):
         return self.user
+
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = UserModel
+        fields = ('email',)
+
+
+class ProfileForm(BootstrapFormMixin, forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('profile_image',)
