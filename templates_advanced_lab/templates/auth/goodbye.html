@@ -1,8 +1,8 @@
-body{
-    background-color: azure;
-}
+{% extends 'common/base.html' %}
 
-.center {
+{% block content %}
+    <style>
+        .center {
             text-align: center;
             margin-top: 200px;
             font-family: "Bell MT";
@@ -10,4 +10,6 @@ body{
             font-style: oblique;
             color: darkblue;
         }
-
+    </style>
+    <h1 class="center">SEE YOU NEXT TIME!</h1>
+{% endblock %}

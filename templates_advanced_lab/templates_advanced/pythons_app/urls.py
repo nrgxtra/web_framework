@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
+from .views import IndexView, PythonCreateView
 
 urlpatterns = [
-    path('', views.index, name="index"),
-    path('create/', views.create, name="create")
+    path('', IndexView.as_view(), name="index"),
+    path('create/', PythonCreateView.as_view(), name="create"),
 ]
