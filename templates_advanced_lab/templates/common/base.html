@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
-{% profile_complete_notification %}
+
 <body>
-    {% include 'common/header.html' %}
-    {% block content %}
-    {% endblock %}
-    {% include 'common/footer.html' %}
+{% include 'common/header.html' %}
+{% if user.is_authenticated %}
+    {% profile_complete_notification %}
+{% endif %}
+{% block content %}
+{% endblock %}
+{% include 'common/footer.html' %}
 </body>
 </html>
