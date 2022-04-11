@@ -1,4 +1,4 @@
-from django.shortcuts import render
+
 from django.urls import reverse_lazy, reverse
 from django.views import generic as view
 from django.views.generic.detail import SingleObjectMixin
