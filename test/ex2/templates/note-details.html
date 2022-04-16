@@ -1,0 +1,53 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <title>Notes</title>
+</head>
+
+<body>
+<!--navigation bar-->
+<header>
+    <nav>
+        <ul>
+            <li class="img"><img src="{% static 'images/note.png' %}" width="32" height="32"/></li>
+
+            <li><a href="{% url 'note create' %}">Add Note</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+        </ul>
+    </nav>
+</header>
+        <!--end navigation bar-->
+
+        <div class="body">
+            <!--headings-->
+            <h1>Note Details</h1>
+            <!--headings-->
+
+            <!--details note box-->
+            <div class="note-details-container">
+                <h2>Today's Tasks</h2>
+                <li class="img"><img src="{{ note.image_url }}" width="32" height="32"/></li>
+                <div>
+                    <p>Content</p>
+                </div>
+                <p>
+                    {{ note.content}}
+                </p>
+                <div class="right">
+                    <a class="button edit" href="{% url 'note edit' note.id %}">Edit</a>
+                    <a class="button delete" href="{% url 'note delete' note.id %}">Delete</a>
+                </div>
+            </div>
+            <!--end details note box-->
+        </div>
+
+        <!--footer-->
+        <footer>
+            <div>Python Web Basics Exam @SoftUni</div>
+        </footer>
+        <!--end footer-->
+    </body>
+</html>
