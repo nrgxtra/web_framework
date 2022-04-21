@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 
 def rating_validator(value):
     if value > 5 or value < 0.1:
-        raise ValidationError('Rating cannot be greater than 5!')
+        raise ValidationError('Rating cannot be greater than 5 or below 0.1!')
 
 
 def age_validator(value):

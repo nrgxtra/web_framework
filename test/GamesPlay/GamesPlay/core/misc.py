@@ -18,5 +18,7 @@ def games_count():
 def get_avg_rating():
     games = get_games()
     total_rating = sum(g.rating for g in games)
+    if games.count() == 0:
+        return 0.0
     avg_rating = total_rating / games.count()
     return avg_rating
